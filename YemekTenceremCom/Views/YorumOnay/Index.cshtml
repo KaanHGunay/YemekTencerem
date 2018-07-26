@@ -1,0 +1,43 @@
+﻿@model IEnumerable<YemekTenceremCom.Models.Yorum>
+@{
+    ViewData["Title"] = "Onay Bekleyen Yorumlar";
+}
+<h2>Index</h2>
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.YorumMetni)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.YorumOnay)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            if (item.YorumOnay == "Onay Bekliyor")  {
+                using (@Html.BeginForm("Edit", "YorumOnay", FormMethod.Post))
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.YorumMetni)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Yemek.Ad)
+                        </td>
+                        <td>
+                            <input type="submit" value="Onayla" asp-action="Onayla" asp-route-id=@item.YorumId class="btn btn-success" />
+                            <input type="submit" value="Reddet" asp-action="Reddet" asp-route-id=@item.YorumId class="btn btn-danger" />
+                        </td>
+                    </tr>
+                }
+            }
+        }
+    </tbody>
+</table>

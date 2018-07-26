@@ -1,0 +1,68 @@
+﻿@model YemekTenceremCom.Models.Yemek
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Yemek</h4>
+    <hr />
+    
+</div>
+
+
+<div class="row">
+    <div class="col-sm-6">
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Ad)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Ad)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Malzemeler)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Malzemeler)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Hazirlanisi)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Hazirlanisi)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Resim)
+            </dt>
+            <dd>
+                <img class="img-responsive img-rounded" src="~/resimler/@Model.Resim" alt="Resim Yok" />
+            </dd>
+        </dl>
+    </div>
+    <div class="col-sm-6">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Yorumlar</th>
+                </tr>
+            </thead>
+            @foreach (Yorum x in Model.Yorumlar)
+            {
+                if (x.YorumOnay == "Onaylandı")
+	            {
+		            <tr>
+                        <td>@x.YorumMetni</td>
+                    </tr> 
+	            }
+            }            
+        </table>
+    </div>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Düzenle</a> |
+    <a asp-action="Index">Bütün Yemekler</a> |
+    <a asp-controller="YorumIslemleri" asp-action="YorumEkle" asp-route-id="@Model.Id">Yorum Yap</a>
+</div>
